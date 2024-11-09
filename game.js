@@ -90,19 +90,52 @@ function playGame(rounds=0){
     }
 }
 
-let humanScore = 0
-let computerScore = 0
-wrap_around()
+async function wrap_around (){
+    function getClick(){
+        const first = document.querySelector(".first");
+        const startBtn = document.querySelector(".start");
 
-function wrap_around (){
-    willingness = prompt("Do you want to play? YES/NO").toUpperCase()
-    if (willingness == "YES"){
+        first.removeChild(startBtn);
+
+        const second = document.querySelector(".second");
+        const firstBtns1 = document.createElement("button");
+        firstBtns1.classList.add("yes");
+        firstBtns1.textContent = "YES";
+        firstBtns1.addEventListener("click", changeVariable);
+        const firstBtns2 = document.createElement("button");
+        firstBtns2.classList.add("no");
+        firstBtns2.textContent = "NO";
+        firstBtns2.addEventListener("click", changeVariable);
+
+        second.appendChild(firstBtns1)
+        second.appendChild(firstBtns2)
+    }
+    
+    console.log("before getClick")
+    // await getClick()
+    console.log("after getClick")
+    
+    if (decision == "YES"){
         humanScore = 0
         computerScore = 0
         playGame()
         wrap_around()
     }
-    else{
+    else if (decision == "NO") {
         console.log("What now?")
     }
 }
+
+function changeVariable(event){
+    let decision = event.target.textContent;
+}
+
+let humanScore = 0
+let computerScore = 0
+let decision = "Problem"
+const first = document.querySelector(".first");
+const startBtn = document.createElement("button");
+startBtn.classList.add("start");
+startBtn.textContent = "Click me baby!";
+startBtn.addEventListener("click", wrap_around);
+first.appendChild(startBtn);
